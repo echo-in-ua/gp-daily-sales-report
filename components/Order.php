@@ -4,7 +4,7 @@ namespace GPDailyReport\components;
 
 class Order
 {
-	private $wcOrder;
+	protected $wcOrder;
 
 	public function __construct (\WC_Order $order)
 	{

@@ -34,6 +34,9 @@ class GPDailyReport
 
 add_action('wp_loaded', function ()  {
    $app = GPDailyReport::getInstance();
+
+   $plugin="woocommerce/woocommerce1.php";
+   $app->log->write_log( is_plugin_active( $plugin ) );
 });
 
 ?>

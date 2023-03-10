@@ -2,6 +2,7 @@
 
 namespace GPDailyReport\components;
 require_once 'Order.php';
+require_once 'DefaultWooCommerceOrder.php';
 
 class Report
 
@@ -61,7 +62,7 @@ class Report
 	private function buildOrders(): void
 	{
 		foreach ($this->wcOrders as $wcOrder) {
-			$order = new Order($wcOrder);
+			$order = $this->createOrderFromWcOrder($wcOrder);
 			$this->orders[] = $order;
 		}
 	}
@@ -140,6 +141,22 @@ class Report
 	public function dailySalesReport(): array
 	{
 		return $this->dailySalesReport;
+	}
+
+	private function createOrderFromWcOrder(\WC_Order $wcOrder): Order
+	{
+		if ( $this->openPosActive() )
+		{
+			return new Order($wcOrder);
+		} else
+		{
+			return new DefaultWooCommerceOrder($wcOrder);
+		}
+	}
+
+	private function openPosActive(): bool
+	{
+		return is_plugin_active( 'woocommerce-openpos\woocommerce-openpos.php' );
 	}
 
 	// public function getOrders(): array
