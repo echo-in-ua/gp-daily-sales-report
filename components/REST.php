@@ -7,10 +7,11 @@ require_once 'Report.php';
 class REST
 {
 	private $logger;
-	private $token = '71kKbRsP6auLgjIg7B12WzZOcqY79qY7';
+	private $token;
 
 	public function __construct()
 	{
+		$this->token = esc_attr( get_option('gp_daily_sales_report_api_token') );
 		$this->logger = new Logger();
 		add_action('rest_api_init',[$this,'init']);
 	}

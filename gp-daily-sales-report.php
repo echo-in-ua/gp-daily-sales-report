@@ -9,9 +9,11 @@ Author: GP
 require_once 'components/Logger.php';
 require_once 'components/Report.php';
 require_once 'components/REST.php';
+require_once 'components/Settings.php';
 use GPDailyReport\components\Logger;
 use GPDailyReport\components\Report;
 use GPDailyReport\components\REST;
+use GPDailyReport\components\Settings;
 
 class GPDailyReport
 {
@@ -21,7 +23,8 @@ class GPDailyReport
 	private function __construct()
 	{
 		$this->log = new Logger();
-		new REST(); 
+		new REST();
+		new Settings(); 
 	}
 
 	static function getInstance()
@@ -34,9 +37,6 @@ class GPDailyReport
 
 add_action('wp_loaded', function ()  {
    $app = GPDailyReport::getInstance();
-
-   $plugin="woocommerce/woocommerce1.php";
-   $app->log->write_log( is_plugin_active( $plugin ) );
 });
 
 ?>
